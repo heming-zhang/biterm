@@ -12,9 +12,11 @@ if __name__ == "__main__":
     # vectorize texts
     vec = CountVectorizer(stop_words='english')
     X = vec.fit_transform(texts).toarray()
+    print(X)
 
     # get vocabulary
     vocab = np.array(vec.get_feature_names())
+    print(vocab)
 
     # get biterms
     biterms = vec_to_biterms(X)
@@ -22,7 +24,7 @@ if __name__ == "__main__":
     # create btm
     btm = oBTM(num_topics=20, V=vocab)
 
-    print("\n\n Train Online BTM ..")
+    # print("\n\n Train Online BTM ..")
     for i in range(0, len(biterms), 100): # prozess chunk of 200 texts
         biterms_chunk = biterms[i:i + 100]
         btm.fit(biterms_chunk, iterations=50)
